@@ -5,10 +5,63 @@ import { GoRepo, GoGist } from 'react-icons/go'
 import { FiUsers, FiUserPlus } from 'react-icons/fi'
 
 const UserInfo = () => {
-  //we import all the value we setup inside our context inside the GithubContext component
-  const data = React.useContext(GithubContext)
-  console.log(data)
-  return <h2>user info component</h2>
+  //we grab our data from our githubuser apiand deconstruct them
+  const { githubUser } = React.useContext(GithubContext)
+  const { public_repos, followers, following, public_gists } = githubUser
+
+  //we create a new array of obj from our data from the api and from other thing we import so it wil bbe easier to navigate
+  const items = [
+    {
+      id: 1,
+      icon: <GoRepo className='icon' />,
+      label: 'repos',
+      value: public_repos,
+      color: 'pink',
+    },
+    {
+      id: 2,
+      icon: <FiUsers className='icon' />,
+      label: 'followers',
+      value: followers,
+      color: 'green',
+    },
+    {
+      id: 3,
+      icon: <FiUserPlus className='icon' />,
+      label: 'following',
+      value: following,
+      color: 'purple',
+    },
+    {
+      id: 4,
+      icon: <GoGist className='icon' />,
+      label: 'gists',
+      value: public_gists,
+      color: 'yellow',
+    },
+  ]
+  //we display our new array through mapping and creating an Item component
+  return (
+    <section className='section'>
+      <Wrapper className='section-center'>
+        {items.map((item) => {
+          return <Item key={item.id} {...item}></Item>
+        })}
+      </Wrapper>
+    </section>
+  )
+}
+
+const Item = ({ icon, label, value, color }) => {
+  return (
+    <article className='item'>
+      <span className={color}>{icon}</span>
+      <div>
+        <h3>{value}</h3>
+        <p>{label}</p>
+      </div>
+    </article>
+  )
 }
 
 const Wrapper = styled.section`

@@ -16,8 +16,8 @@ const Followers = () => {
               <img src={img} alt={login} />
               <div>
                 <h4>{login}</h4>
+                <a href={html_url}>{html_url}</a>
               </div>
-              <a href={html_url}>{html_url}</a>
             </article>
           )
         })}
@@ -55,6 +55,7 @@ const Wrapper = styled.article`
     grid-template-rows: repeat(auto-fill, minmax(45px, 1fr));
     gap: 1.25rem 1rem;
     padding: 1rem 2rem;
+    overflow-x: hidden;
   }
   article {
     transition: var(--transition);
